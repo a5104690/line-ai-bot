@@ -14,6 +14,12 @@ services:
         sync: false
       - key: OPENAI_MODEL
         value: gpt-4o-mini
+      - key: AI_MODE
+        value: openai
+      - key: OLLAMA_BASE_URL
+        sync: false
+      - key: OLLAMA_MODEL
+        value: llama3.1:8b
       - key: ADMIN_USER_IDS
         sync: false
       - key: BOT_TRIGGER_NAME
