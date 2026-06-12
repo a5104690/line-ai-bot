@@ -73,6 +73,10 @@ function extractPrompt(text, isGroupLike) {
     return text.replace(config.botTriggerName, '').trim();
   }
 
+  if (text.startsWith('@')) {
+    return text.replace(/^@\S+\s*/, '').trim();
+  }
+
   return '';
 }
 
