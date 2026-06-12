@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: line-ai-bot
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: LINE_CHANNEL_ACCESS_TOKEN
+        sync: false
+      - key: LINE_CHANNEL_SECRET
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: ADMIN_USER_IDS
+        sync: false
+      - key: BOT_TRIGGER_NAME
+        value: "@bot"
+      - key: RESPOND_TO_ALL_GROUP_MESSAGES
+        value: "false"
