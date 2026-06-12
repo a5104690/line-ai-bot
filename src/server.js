@@ -1,11 +1,11 @@
 import express from 'express';
-import line from '@line/bot-sdk';
+import * as line from '@line/bot-sdk';
 import { askAi } from './ai.js';
 import { config } from './config.js';
 import { getRecentMessages, remember } from './memory.js';
 
 const app = express();
-const lineClient = new line.messagingApi.MessagingApiClient({
+const lineClient = line.LineBotClient.fromChannelAccessToken({
   channelAccessToken: config.line.channelAccessToken
 });
 
