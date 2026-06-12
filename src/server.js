@@ -52,7 +52,7 @@ async function handleEvent(event) {
     await reply(event.replyToken, answer);
   } catch (error) {
     console.error('AI request failed:', error);
-    await reply(event.replyToken, '處理時發生錯誤，請稍後再試。');
+    await reply(event.replyToken, formatAiError(error));
   }
 }
 
@@ -111,6 +111,18 @@ function reply(replyToken, text) {
 
 function truncateLineText(text) {
   return text.length > 4900 ? `${text.slice(0, 4900)}\n...(已截斷)` : text;
+}
+
+function formatAiError(error) {
+  if (error?.code === 'insufficient_quota' || error?.error?.code === 'insufficient_quota') {
+    return 'OpenAI API 目前沒有可用額度或尚未完成付款設定，因此暫時無法回答。請到 OpenAI Platform 的 Billing / Usage 檢查額度。';
+  }
+
+  if (error?.status === 401 || error?.code === 'invalid_api_key') {
+    return 'OpenAI API key 無效或已失效，請更新 Render 環境變數 OPENAI_API_KEY。';
+  }
+
+  return '處理時發生錯誤，請稍後再試。';
 }
 
 app.listen(config.port, () => {
